@@ -1,10 +1,50 @@
 const path = require('path');
+//import html-webpack-plugin
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+//create new instance of HtmlWebpackPlugin class
+// plugins: [
+//     new HtmlWebpackPlugin({
+//         template: './index.html',
+//         title: 'Webpack Plugin',
+//     })
+// ]
 
 module.exports = {
+    mode: 'developement',
     entry: "./src/js/index.js",
     output: {
-        filename: "main.js",
+        filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
     },
-    mode: "development",
+    module: {
+        rules: [
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['@babel/preset-env', { targets: "defaults" }]
+                        ]
+                    }
+                }
+            },
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            title: 'Webpack Plugin',
+        })
+    ]
 }
