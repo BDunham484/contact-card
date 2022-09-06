@@ -1,7 +1,8 @@
 //import js modules
 // import "./form";
 // import "./submit"
-import { initdb, getDb, postDb, deleteDb, editDb } from './database';
+
+import { initdb, postDb, deleteDb, editDb } from './database';
 import { fetchCards } from "./cards";
 import { toggleForm, clearForm } from "./form";
 
@@ -19,8 +20,10 @@ import Dog from '../images/dog.png';
 
 
 //add images on load
+
 window.addEventListener('load', function () {
     initdb();
+    console.log('this should display once')
     fetchCards();
     document.getElementById('logo').src = Logo;
     document.getElementById('bearThumbnail').src = Bear;
