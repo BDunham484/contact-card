@@ -6,6 +6,7 @@ import { initdb, postDb, deleteDb, editDb } from './database';
 import { fetchCards } from "./cards";
 import { toggleForm, clearForm } from "./form";
 
+
 //import css files
 import "../css/index.css";
 

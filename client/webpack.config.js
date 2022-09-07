@@ -2,7 +2,9 @@ const path = require('path');
 //import html-webpack-plugin
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //import GenerateSW class of Workbox plugin
-const WorkboxPlugin = require('workbox-webpack-plugin');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
+//import InjectManifest class of Workbod plugin
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 //create new instance of HtmlWebpackPlugin class
 // plugins: [
@@ -48,6 +50,28 @@ module.exports = {
             template: './index.html',
             title: 'Webpack Plugin',
         }),
-        new WorkboxPlugin.GenerateSW()
+        // new WorkboxPlugin.GenerateSW({
+        //     //do not pre-cache images
+        //     exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+        //     //define runtime caching rules
+        //     runtimeCaching: [{
+        //         //match any request that ends with.png, .jpg, .jpeg, or .svg 
+        //         urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+        //         //apply a cache-first strategy
+        //         handler: 'CacheFirst',
+        //         options: {
+        //             //user a custom cache name
+        //             cacheName: 'images',
+        //             //onl cache 1 image
+        //             expiration: {
+        //                 maxEntries: 1,
+        //             },
+        //         },
+        //     }],
+        // })
+        new InjectManifest({
+            swSrc: './src/sw.js',
+            swDest: 'service-worker.js',
+        })
     ]
 }
