@@ -108,3 +108,20 @@ if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./service-worker.js');
     })
 }
+
+//create a new variable that will reference the id of the install button
+const installBtn = document.getElementById('installBtn');
+//event handler attached to the window element that checks `beforeinstallprompt` and sets the visibility of the button to 'visible'
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installBtn.style.visibility = 'visible';
+    installBtn.addEventListener('click', () => {
+        event.prompt();
+        installBtn.setAttribute('disbaled', true);
+        installBtn.textContent = 'Installed!';
+    });
+});
+//event listener to check whether or not the app has been installed
+window.addEventListener('appinstalled', (event) => {
+    console.log('👍', 'appinstalled', event);
+});
